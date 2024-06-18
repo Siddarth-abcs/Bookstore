@@ -1,22 +1,36 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Navbar } from './components/Navbar/Navbar'
-import { Products } from './components/Products/Products'
+import { useState } from 'react';
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Navbar } from './components/Navbar/Navbar';
+import { Products } from './components/Products/Products';
+import { Cart } from './components/Cart/Cart';
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = async (item) => {
+    try {
+      const response = await axios.post('https://bookapi-seven.vercel.app/cart', item);
+      console.log(response.data, "app");
+      setCartItems(response)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
+  // console.log(cartItems,"app");
 
   return (
     <BrowserRouter>
-    <Navbar/>
-    <Routes>
-    <Route path='/' element={<Products/>} />
-    </Routes>
+      <Navbar cartItems={cartItems} />
+      <Routes>
+        <Route path='/' element={<Products Cart={addToCart} />} />
+        <Route path='/cart' element={<Cart cartItems={cartItems} />} />
+      </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
