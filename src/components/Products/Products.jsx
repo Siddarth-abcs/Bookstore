@@ -15,7 +15,7 @@ export const Products = ({ Cart }) => {
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-4 md:gap-y-10 mx-8 mt-5">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-4 md:gap-y-10 mx-8 my-12">
       {data.map((product, index) => (
         <div key={index} className="group relative block overflow-hidden shadow-md">
           <img
