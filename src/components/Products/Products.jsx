@@ -1,16 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Products = ({ Cart }) => {
   const [data, setData] = useState([]);
+  const [originalData, setOriginalData] = useState([]); // Add a state to store the original data
   const [loading, setLoading] = useState(true); // Add a loading state
-  const [hindi, setHindi] = useState(true); // Add an error state
 
   useEffect(() => {
     axios
       .get("https://bookapi-seven.vercel.app/products")
       .then((response) => {
         setData(response.data);
+        setOriginalData(response.data); // Store the original data
+        // console.log(response);
         setLoading(false); // Set loading to false after data is fetched
       })
       .catch((err) => {
@@ -18,6 +21,20 @@ export const Products = ({ Cart }) => {
         setLoading(false); // Set loading to false even if there is an error
       });
   }, []);
+
+  const english = () => {
+    const englishdata = originalData.filter(
+      (item) => item.language === "English"
+    );
+    // console.log(englishdata);
+    setData(englishdata);
+  };
+
+  const hindi = () => {
+    const hindidata = originalData.filter((item) => item.language === "Hindi");
+    // console.log(hindidata);
+    setData(hindidata);
+  };
 
   return (
     <div>
@@ -29,16 +46,22 @@ export const Products = ({ Cart }) => {
         <div>
           <div className="w-5/6 mx-auto my-8 p-4 border-8 border-hero rounded shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <h1 className="text-2xl font-bold text-center text-hero-text">
-              Books Available in tow languages
+              Books Available in two languages
             </h1>
 
             <div className="my-3 flex flex-row items-center justify-center">
               <div className="flex flex-col w-3/6">
-                <button className="bg-[rgba(54,219,203,1)] text-[rgba(0,0,0,1)] my-1 font-semibold py-2 px-4 rounded-[5px] hover:text-white hover:bg-hero-text">
+                <button
+                  onClick={hindi}
+                  className="bg-[rgba(54,219,203,1)] text-[rgba(0,0,0,1)] my-1 font-semibold py-2 px-4 rounded-[5px] hover:text-white hover:bg-hero-text"
+                >
                   Hindi Books
                 </button>
-                <button className="bg-[rgba(54,219,203,1)] text-[rgba(0,0,0,1)] my-1 font-semibold py-2 px-4 rounded-[5px] hover:text-white hover:bg-hero-text">
-                  English Books
+                <button
+                  onClick={english}
+                  className="bg-[rgba(54,219,203,1)] text-[rgba(0,0,0,1)] my-1 font-semibold py-2 px-4 rounded-[5px] hover:text-white hover:bg-hero-text"
+                >
+                  All Books
                 </button>
               </div>
               <div className="text-center">
@@ -55,14 +78,18 @@ export const Products = ({ Cart }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-4 md:gap-y-10 mx-8 mb-8">
             {data.map((product, index) => (
               <div
-                key={index}
-                className="group relative block overflow-hidden shadow-md"
-              >
+              key={index}
+              className="group relative block overflow-hidden shadow-md"
+            >
+              <Link 
+              to={`/product/${product.name}`}
+              state={{ product }}>
                 <img
                   src={product.url}
                   alt={product.name}
                   className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-80"
                 />
+                </Link>
                 <div className="relative border border-gray-100 bg-white p-3">
                   <h3 className="text-sm font-medium text-gray-900">
                     {product.name}

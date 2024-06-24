@@ -6,8 +6,10 @@ import { Products } from "./components/Products/Products";
 import { Cart } from "./components/Cart/Cart";
 import { Checkout } from "./components/Checkout/Checkout";
 import { Footer } from "./components/Footer/Footer";
-import { Terms } from "./Terms And Conditions/Terms";
 import { Contact } from "./components/Contact/Contact";
+import { Terms } from "./components/TermsConditions/Terms";
+import { Productpage } from "./components/Productpage/Productpage";
+import { ThankyouPage } from "./components/ThankyouPage/ThankyouPage";
 
 function App() {
   const [cartItems, setCartItems] = useState(() => {
@@ -44,10 +46,15 @@ function App() {
       <Navbar cartItems={cartItems} />
       <Routes>
         <Route path="/" element={<Products Cart={addToCart} />} />
+        <Route
+          path="/product/:name"
+          element={<Productpage Cartpage={addToCart} />}
+        />
         <Route path="/cart" element={<Cart cartItems={cartItems} />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/thankyou" element={<ThankyouPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

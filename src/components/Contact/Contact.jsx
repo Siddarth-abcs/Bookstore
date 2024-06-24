@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 export const Contact = () => {
@@ -9,16 +10,26 @@ export const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+    // console.log(name, value);
     setContactInfo({
       ...contactInfo,
       [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(contactInfo);
+    try {
+      const response = await axios.post(
+        "https://bookapi-seven.vercel.app/contact",
+        contactInfo
+      );
+      if (response) {
+        alert("Message Sent Successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

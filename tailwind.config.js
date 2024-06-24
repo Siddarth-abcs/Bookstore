@@ -13,6 +13,7 @@ export default {
         'global-accent': '#61CE70',
         'hero':'#FFD700',
         'hero-text': '#333333',
+        'darkblue': '#3333ff',
       }
     },
   },

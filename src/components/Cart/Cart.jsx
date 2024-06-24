@@ -45,10 +45,13 @@ export const Cart = ({ cartItems }) => {
   };
 
   const getSubtotal = () => {
-    return cartProducts
-      .reduce((sum, product) => sum + product.price * product.quantity, 0)
-      .toFixed(2);
+    return cartProducts.reduce(
+      (acc, product) => acc + product.price * product.quantity,
+      0
+    );
   };
+
+  const deliverycost = getSubtotal() > 799 ? 0 : 40; // Calculate delivery cost based on subtotal
 
   const checkout = () =>
     console.log(JSON.parse(localStorage.getItem("bookcart")));
@@ -72,7 +75,9 @@ export const Cart = ({ cartItems }) => {
                   <h2 className="text-lg font-bold text-gray-900">
                     {product.name}
                   </h2>
-                  <p className="mt-1 text-xs text-gray-700">{product.author}</p>
+                  <p className="mt-1 text-xs text-gray-700">
+                    {product.author}
+                  </p>
                 </div>
                 <div className="mt-4 flex flex-col ml-auto space-y-6">
                   <div className="flex items-center border-gray-100">
@@ -126,15 +131,15 @@ export const Cart = ({ cartItems }) => {
           ))}
         </div>
         {/* <!-- Sub total --> */}
-        {cartProducts == "" ? (
+        {cartProducts.length === 0 ? (
           <div className="h-[60vh] w-6/6 flex flex-col justify-center items-center">
             <h1 className="text-3xl font-bold my-8">Cart Empty</h1>
             <Link to={"/"}>
               <a
-                class="group inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
+                className="group inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
                 href="#"
               >
-                <span class="block rounded-sm bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+                <span className="block rounded-sm bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
                   Get Your Favorite book
                 </span>
               </a>
@@ -147,15 +152,15 @@ export const Cart = ({ cartItems }) => {
               <p className="text-gray-700">₹ {getSubtotal()}</p>
             </div>
             <div className="flex justify-between">
-              <p className="text-gray-700">Standard Delivey: </p>
-              <p className="text-gray-700">₹ 40</p>
+              <p className="text-gray-700">Standard Delivery: </p>
+              <p className="text-gray-700">{deliverycost === 0 ? "Free Delivery" : `₹ ${deliverycost}`}</p>
             </div>
             <hr className="my-4" />
             <div className="flex justify-between">
               <p className="text-lg font-bold">Total</p>
               <div className="">
                 <p className="mb-1 text-lg font-bold">
-                  ₹ {(parseFloat(getSubtotal()) + 40).toFixed(2)} INR
+                  ₹ {(parseFloat(getSubtotal()) + deliverycost).toFixed(2)} INR
                 </p>
               </div>
             </div>
