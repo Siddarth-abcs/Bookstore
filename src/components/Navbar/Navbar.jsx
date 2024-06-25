@@ -48,7 +48,7 @@ export const Navbar = ({ cartItems }) => {
             </div>
           </Link>
           <a
-            href="https://api.whatsapp.com/send/?phone=919211868931&text&type=phone_number&app_absent=0"
+            href="https://api.whatsapp.com/send/?phone=919211868931&text&type=phone_number&app_absent=0" target="__blank"
             className="bg-green-500 hover:bg-green-900 text-white font-bold py-1 px-4 rounded-full flex items-center fixed right-4 bottom-4 z-10"
           >
             <svg
