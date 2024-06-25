@@ -83,19 +83,25 @@ export const Checkout = () => {
         ],
         orderdate: new Date(), // Use current date for order date
         orderid: data.payment, // Use the orderId from jsonResponse
-        products: cartData.map((item) => item._id), // Assuming cartData is an array of products
+        products: cartData.map((item) => ({
+          _id: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          language: item.language,
+        })), // Assuming cartData is an array of products
         totalprice: total,
         paymentmethod: data.payment,
         paymentId: data.payment, // Use the paymentId from jsonResponse
       };
-
+      console.log(newdata);
       try {
         const response = await axios.post(
           "https://bookapi-seven.vercel.app/order",
           newdata
         );
         // location for redirect
-        window.location.href = "/thankyou";
+        // window.location.href = "/thankyou";
       } catch (error) {
         console.log(error);
       }
@@ -165,7 +171,13 @@ export const Checkout = () => {
                 ],
                 orderdate: new Date(), // Use current date for order date
                 orderid: jsonResponse.orderId, // Use the orderId from jsonResponse
-                products: cartData.map((item) => item._id), // Assuming cartData is an array of products
+                products: cartData.map((item) => ({
+                  _id: item._id,
+                  name: item.name,
+                  price: item.price,
+                  quantity: item.quantity,
+                  language: item.language,
+                })), // Assuming cartData is an array of products
                 totalprice: total,
                 paymentmethod: data.payment,
                 paymentId: jsonResponse.paymentId, // Use the paymentId from jsonResponse
