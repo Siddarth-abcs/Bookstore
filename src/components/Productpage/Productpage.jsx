@@ -42,7 +42,7 @@ export const Productpage = ({ Cartpage }) => {
                   </button>
                 </div>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=919211868931&text&type=phone_number&app_absent=0"
+                  href="https://api.whatsapp.com/send/?phone=919211868931&text&type=phone_number&app_absent=0" target="__blank"
                   className="bg-green-500 hover:bg-green-800 text-white font-bold py-1 w-3/4 px-4 rounded flex items-center gap-2"
                 >
                   <svg
