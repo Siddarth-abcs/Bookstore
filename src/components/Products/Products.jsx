@@ -13,7 +13,6 @@ export const Products = ({ Cart }) => {
       .then((response) => {
         setData(response.data);
         setOriginalData(response.data); // Store the original data
-        // console.log(response);
         setLoading(false); // Set loading to false after data is fetched
       })
       .catch((err) => {
@@ -26,13 +25,11 @@ export const Products = ({ Cart }) => {
     const englishdata = originalData.filter(
       (item) => item.language === "English"
     );
-    // console.log(englishdata);
     setData(englishdata);
   };
 
   const hindi = () => {
     const hindidata = originalData.filter((item) => item.language === "Hindi");
-    // console.log(hindidata);
     setData(hindidata);
   };
 
@@ -78,17 +75,15 @@ export const Products = ({ Cart }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-4 md:gap-y-10 mx-8 mb-8">
             {data.map((product, index) => (
               <div
-              key={index}
-              className="group relative block overflow-hidden shadow-md"
-            >
-              <Link 
-              to={`/product/${product.name}`}
-              state={{ product }}>
-                <img
-                  src={product.url}
-                  alt={product.name}
-                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-80"
-                />
+                key={index}
+                className="group relative block overflow-hidden shadow-md"
+              >
+                <Link to={`/product/${product.name}`} state={{ product }}>
+                  <img
+                    src={product.url}
+                    alt={product.name}
+                    className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-80"
+                  />
                 </Link>
                 <div className="relative border border-gray-100 bg-white p-3">
                   <h3 className="text-sm font-medium text-gray-900">

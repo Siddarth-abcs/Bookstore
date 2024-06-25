@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./logo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 export const Navbar = ({ cartItems }) => {
+  // google analaytcs
+  const TRACKING_ID = "G-7PHH1WK7FG";
+  ReactGA.initialize(TRACKING_ID);
+  const location = useLocation();
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: location.pathname });
+  }, [location]);
+
   return (
     <header>
       <nav className="h-20 bg-white shadow-xl">
         <div className="px-8 py-6 flex justify-between">
           {/* logo */}
           <div className="h-16">
-            <img className="h-2/3" src={logo} alt="logo" />
+            <Link to={"/"}>
+              <img className="h-2/3" src={logo} alt="logo" />
+            </Link>
           </div>
           {/* Cart */}
           <Link to={"/cart"}>
@@ -37,7 +49,7 @@ export const Navbar = ({ cartItems }) => {
           </Link>
           <a
             href="https://api.whatsapp.com/send/?phone=919211868931&text&type=phone_number&app_absent=0"
-            class="bg-green-500 hover:bg-green-900 text-white font-bold py-1 px-4 rounded-full flex items-center fixed right-4 bottom-4 z-10"
+            className="bg-green-500 hover:bg-green-900 text-white font-bold py-1 px-4 rounded-full flex items-center fixed right-4 bottom-4 z-10"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Products } from "./components/Products/Products";
 import { Cart } from "./components/Cart/Cart";
@@ -34,12 +34,10 @@ function App() {
     });
   };
 
+  // console.log("Cart items updated:", cartItems);
   useEffect(() => {
     localStorage.setItem("bookcart", JSON.stringify(cartItems));
-    console.log("Cart items updated:", cartItems);
   }, [cartItems]);
-
-  console.log(cartItems);
 
   return (
     <BrowserRouter>

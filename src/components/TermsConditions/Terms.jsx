@@ -2,16 +2,16 @@ import React from "react";
 
 export const Terms = () => {
   return (
-    <div class="container mx-auto px-4 my-12 w-11/12">
-      <h1 class="text-4xl font-bold text-center mb-8">
+    <div className="container mx-auto px-4 my-12 w-11/12">
+      <h1 className="text-4xl font-bold text-center mb-8">
         Our Terms And Conditions
       </h1>
 
       {/* <!-- First Section --> */}
-      <p class="text-xl font-bold mb-4">
+      <p className="text-xl font-bold mb-4">
         1. THESE TERMS AND CONDITIONS SHALL GOVERN YOUR USE OF OUR WEBSITE.
       </p>
-      <ul class="list-disc ml-8 mb-4">
+      <ul className="list-disc ml-8 mb-4">
         <li>
           By using our website, you accept these terms and conditions in full;
           accordingly, if you disagree with these terms and conditions or any
@@ -20,8 +20,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Second Section --> */}
-      <p class="text-xl font-bold mb-4">2. LICENCE TO USE WEBSITE</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">2. LICENCE TO USE WEBSITE</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>You may view pages from our website in a web browser.</li>
         <li>Download pages from our website for caching in a web browser.</li>
         <li>Print pages from our website.</li>
@@ -62,8 +62,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Third Section --> */}
-      <p class="text-xl font-bold mb-4">3. ACCEPTABLE USE</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">3. ACCEPTABLE USE</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           You must not use our website in any way or take any action that
           causes, or may cause, damage to the website or impairment of the
@@ -112,15 +112,15 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Seventh Section --> */}
-      <p class="text-xl font-bold mb-4">4. YOUR CONTENT: LICENCE</p>
-      <p class="mb-4">
+      <p className="text-xl font-bold mb-4">4. YOUR CONTENT: LICENCE</p>
+      <p className="mb-4">
         In these terms and conditions, “your content” means all works and
         materials (including without limitation text, graphics, images, audio
         material, video material, audio-visual material, scripts, software, and
         files) that you submit to us or our website for storage or publication
         on, processing by, or transmission via, our website.
       </p>
-      <ul class="list-disc ml-8 mb-4">
+      <ul className="list-disc ml-8 mb-4">
         <li>
           You grant to us a worldwide, irrevocable, non-exclusive, royalty-free
           license to use, reproduce, store, adapt, publish, translate and
@@ -148,8 +148,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Eighth Section --> */}
-      <p class="text-xl font-bold mb-4">5. YOUR CONTENT: RULES</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">5. YOUR CONTENT: RULES</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           You warrant and represent that your content will comply with these
           terms and conditions.
@@ -243,8 +243,8 @@ export const Terms = () => {
         </li>
       </ul>
       {/* <!-- Ninth Section --> */}
-      <p class="text-xl font-bold mb-4">6. LIMITED WARRANTIES</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">6. LIMITED WARRANTIES</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           We do not warrant or represent the completeness or accuracy of the
           information published on our website.
@@ -267,10 +267,10 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Eleventh Section --> */}
-      <p class="text-xl font-bold mb-4">
+      <p className="text-xl font-bold mb-4">
         7. BREACHES OF THESE TERMS AND CONDITIONS
       </p>
-      <ul class="list-disc ml-8 mb-4">
+      <ul className="list-disc ml-8 mb-4">
         <li>
           Without prejudice to our other rights under these terms and
           conditions, if you breach these terms and conditions in any way, or if
@@ -293,8 +293,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Thirteenth Section --> */}
-      <p class="text-xl font-bold mb-4">8. ASSIGNMENT</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">8. ASSIGNMENT</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           You hereby agree that we may assign, transfer, sub-contract or
           otherwise deal with our rights and/or obligations under these terms
@@ -308,8 +308,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Fourteenth Section --> */}
-      <p class="text-xl font-bold mb-4">9. SEVERABILITY</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">9. SEVERABILITY</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           If a provision of these terms and conditions is determined by any
           court or other competent authority to be unlawful and/or
@@ -324,8 +324,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Fifteenth Section --> */}
-      <p class="text-xl font-bold mb-4">10. THIRD PARTY RIGHTS</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">10. THIRD PARTY RIGHTS</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           A contract under these terms and conditions is for our benefit and
           your benefit, and is not intended to benefit or be enforceable by any
@@ -338,8 +338,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Sixteenth Section --> */}
-      <p class="text-xl font-bold mb-4">11. ENTIRE AGREEMENT</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">11. ENTIRE AGREEMENT</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           Subject to Section 10.1, these terms and conditions, together with our
           privacy and cookies policy, shall constitute the entire agreement
@@ -350,8 +350,8 @@ export const Terms = () => {
       </ul>
 
       {/* <!-- Seventeenth Section --> */}
-      <p class="text-xl font-bold mb-4">12. LAW AND JURISDICTION</p>
-      <ul class="list-disc ml-8 mb-4">
+      <p className="text-xl font-bold mb-4">12. LAW AND JURISDICTION</p>
+      <ul className="list-disc ml-8 mb-4">
         <li>
           These terms and conditions shall be governed by and construed in
           accordance with [country] law.

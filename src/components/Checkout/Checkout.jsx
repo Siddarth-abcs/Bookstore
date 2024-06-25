@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
+import { ThankyouPage } from "../ThankyouPage/ThankyouPage";
 
 export const Checkout = () => {
   const [checkoutData, setCheckoutData] = useState([]);
-  const [paymentstatus, setPaymentStatus] = useState();
 
   useEffect(() => {
     const storedData = localStorage.getItem("bookcart");
@@ -46,13 +45,18 @@ export const Checkout = () => {
   const formattedFutureDate7 = formatDate(futureDate7);
 
   // Display the dates in the desired format
-  console.log(`${formattedFutureDate2} -\n${formattedFutureDate7}`);
+  // console.log(`${formattedFutureDate2} -\n${formattedFutureDate7}`);
 
   const deleteProduct = (product) => {
     const updatedCart = checkoutData.filter((p) => p._id !== product._id);
     setCheckoutData(updatedCart);
     localStorage.setItem("bookcart", JSON.stringify(updatedCart));
+    if (updatedCart.length === 0) {
+      window.location.href = "/";
+    }
   };
+
+  // Payment of Razorpay
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,122 +67,155 @@ export const Checkout = () => {
     const storedData = localStorage.getItem("bookcart");
     const cartData = storedData ? JSON.parse(storedData) : [];
 
-    // post on razarpay for crate orderid
-    const amount = 100;
-    const currency = "INR";
-    const receiptId = "1234567890";
+    // cod apyment method
+    if (data.payment === "cod") {
+      const newdata = {
+        clientname: data.name,
+        clientemail: data.email,
+        clientnumber: data.phone,
+        clientinfo: [
+          data.address,
+          data.apartment,
+          data.landmark,
+          data.city,
+          data.state,
+          data.pin,
+        ],
+        orderdate: new Date(), // Use current date for order date
+        orderid: data.payment, // Use the orderId from jsonResponse
+        products: cartData.map((item) => item._id), // Assuming cartData is an array of products
+        totalprice: total,
+        paymentmethod: data.payment,
+        paymentId: data.payment, // Use the paymentId from jsonResponse
+      };
 
-    const response = await fetch(
-      "https://razorpay-server-nine.vercel.app/order",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount,
-          currency,
-          receipt: receiptId,
-        }),
+      try {
+        const response = await axios.post(
+          "https://bookapi-seven.vercel.app/order",
+          newdata
+        );
+        // location for redirect
+        window.location.href = "/thankyou";
+      } catch (error) {
+        console.log(error);
       }
-    );
+      // Razorpay method start
+    } else {
+      // post on razarpay for crate orderid
+      const amount = total * 100;
+      const currency = "INR";
+      const receiptId = "1234567890";
 
-    const order = await response.json();
-    console.log("order", order);
-
-    var option = {
-      key: "",
-      amount: amount,
-      currency: currency,
-      name: "Bookstore",
-      description: "Bookstore",
-      image:
-        "https://www.imagetotext.info/web_assets/frontend/img/icons/tool-box-image.svg",
-      order_id: order.id,
-      handler: async function (response) {
-        const body = { ...response };
-        try {
-          const validateResponse = await fetch(
-            "https://razorpay-server-nine.vercel.app/validate",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(body),
-            }
-          );
-          const jsonResponse = await validateResponse.json();
-          setPaymentStatus(jsonResponse);
-          console.log("json Response", jsonResponse);
-
-          if (jsonResponse.msg === "Transction is legit!") {
-            const newdata = {
-              clientname: data.name,
-              clientemail: data.email,
-              clientnumber: data.phone,
-              clientinfo: [
-                data.address,
-                data.apartment,
-                data.landmark,
-                data.city,
-                data.state,
-                data.pin,
-              ],
-              orderdate: new Date(), // Use current date for order date
-              orderid: jsonResponse.orderId, // Use the orderId from jsonResponse
-              products: cartData.map((item) => item._id), // Assuming cartData is an array of products
-              totalprice: total,
-              paymentmethod: data.payment,
-              paymentId: jsonResponse.paymentId, // Use the paymentId from jsonResponse
-            };
-
-            console.log(newdata);
-            try {
-              const response = await axios.post(
-                "https://bookapi-seven.vercel.app/order",
-                newdata
-              );
-              console.log(response);
-              // location for redirect
-              window.location.href = "http://localhost:5173/";
-            } catch (error) {
-              console.log(error);
-            }
-          } else {
-            console.error("Validation failed:", jsonResponse.msg);
-            // Handle validation failure (you may add redirection or alert here)
-          }
-        } catch (error) {
-          console.error("Error during validation", error);
-          // Handle validation error (you may add redirection or alert here)
+      const response = await fetch(
+        "https://razorpay-server-nine.vercel.app/order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount,
+            currency,
+            receipt: receiptId,
+          }),
         }
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-      prefill: {
-        name: data.name,
-        email: data.email,
-        contact: data.phone,
-      },
-    };
+      );
 
-    var rzp1 = new Razorpay(option);
-    rzp1.on("payment.failed", function (response) {
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
-    });
-    rzp1.open();
-    event.preventDefault();
+      const order = await response.json();
+      // console.log("order", order);
+
+      var option = {
+        key: "",
+        amount: amount,
+        currency: currency,
+        name: "Bookstore",
+        description: "Bookstore",
+        image:
+          "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihapqRA2Xl1FKt9IJSR-bJstANRJBNZYpXZfrGIloGul_ADFB5xSEp6LH-GNmU5t4nYL6HY-cFh90XV2NpBGPls5TaObTzKvVQ=w1860-h927",
+        order_id: order.id,
+        handler: async function (response) {
+          const body = { ...response };
+          try {
+            const validateResponse = await fetch(
+              "https://razorpay-server-nine.vercel.app/validate",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+              }
+            );
+            const jsonResponse = await validateResponse.json();
+            setPaymentStatus(jsonResponse);
+            // console.log("json Response", jsonResponse);
+
+            if (jsonResponse.msg === "Transction is legit!") {
+              const newdata = {
+                clientname: data.name,
+                clientemail: data.email,
+                clientnumber: data.phone,
+                clientinfo: [
+                  data.address,
+                  data.apartment,
+                  data.landmark,
+                  data.city,
+                  data.state,
+                  data.pin,
+                ],
+                orderdate: new Date(), // Use current date for order date
+                orderid: jsonResponse.orderId, // Use the orderId from jsonResponse
+                products: cartData.map((item) => item._id), // Assuming cartData is an array of products
+                totalprice: total,
+                paymentmethod: data.payment,
+                paymentId: jsonResponse.paymentId, // Use the paymentId from jsonResponse
+              };
+
+              try {
+                const response = await axios.post(
+                  "https://bookapi-seven.vercel.app/order",
+                  newdata
+                );
+                // location for redirect
+                window.location.href = "/thankyou";
+              } catch (error) {
+                console.log(error);
+              }
+            } else {
+              console.error("Validation failed:", jsonResponse.msg);
+              // Handle validation failure (you may add redirection or alert here)
+            }
+          } catch (error) {
+            console.error("Error during validation", error);
+            // Handle validation error (you may add redirection or alert here)
+          }
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#0D94FB",
+        },
+        prefill: {
+          name: data.name,
+          email: data.email,
+          contact: data.phone,
+        },
+      };
+
+      var rzp1 = new Razorpay(option);
+      rzp1.on("payment.failed", function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+      });
+      rzp1.open();
+      event.preventDefault();
+    }
   };
 
   return (
@@ -343,48 +380,57 @@ export const Checkout = () => {
                 {/* payment method */}
 
                 <div className="bg-gray-100 p-4">
-                  <div class="flex items-center">
+                  <div className="flex items-center">
                     <input
                       type="radio"
                       id="razorpay"
                       name="payment"
                       value={"razorpay"}
-                      class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  rounded-full"
+                      className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  rounded-full"
                       checked
+                      readOnly
                     />
                     <label
-                      for="razorpay"
-                      class="ml-2 text-gray-700 flex items-center"
+                      htmlFor="razorpay"
+                      className="ml-2 flex items-center"
                     >
                       <img
                         src="https://th.bing.com/th/id/OIP.3915OPu9nRGi5zVY36VyQgHaFj?rs=1&pid=ImgDetMain"
                         alt=""
-                        srcset=""
-                        class="h-6 mx-2"
+                        className="h-6 mx-2"
                       />
                       <div>
-                        <span class="font-bold text-xl">Pay by Razorpay</span>
+                        <span className="font-bold text-xl">
+                          Pay by Razorpay
+                        </span>
                       </div>
                     </label>
                   </div>
-                  <div class="text-sm mt-4 bg-white p-2 rounded font-semibold">
+                  <div className="text-sm mt-4 bg-white p-2 rounded font-semibold">
                     Pay securely by UPI Or Credit or Debit card or Internet
                     Banking through Razorpay.
                   </div>
-                  <div class="flex items-center mt-4 mb-2">
-                    <input
-                      type="radio"
-                      name="payment"
-                      id="cod"
-                      value={"cod"}
-                      class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500"
-                    />
-                    <label
-                      for="cod"
-                      class="ml-2 font-bold text-ld text-gray-700"
-                    >
-                      Cash on Delivery
-                    </label>
+                  <div className="flex items-center mt-4 mb-2">
+                    {total > 299 ? (
+                      <>
+                        <input
+                          type="radio"
+                          name="payment"
+                          id="cod"
+                          value={"cod"}
+                          className="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500"
+                          readOnly
+                        />
+                        <label htmlFor="cod" className="ml-2 font-bold text-ld">
+                          Cash on Delivery
+                        </label>
+                      </>
+                    ) : (
+                      <div>
+                        COD IS NOT AVAILABLE UNDER Rs.299.USE ANY ONLINE METHOD
+                        OR SHOP ABOVE Rs.299.
+                      </div>
+                    )}
                   </div>
                 </div>
 

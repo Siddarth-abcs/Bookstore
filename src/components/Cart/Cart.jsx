@@ -53,9 +53,6 @@ export const Cart = ({ cartItems }) => {
 
   const deliverycost = getSubtotal() > 799 ? 0 : 40; // Calculate delivery cost based on subtotal
 
-  const checkout = () =>
-    console.log(JSON.parse(localStorage.getItem("bookcart")));
-
   return (
     <div className="mb-12 bg-gray-100 pt-10">
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
@@ -75,9 +72,7 @@ export const Cart = ({ cartItems }) => {
                   <h2 className="text-lg font-bold text-gray-900">
                     {product.name}
                   </h2>
-                  <p className="mt-1 text-xs text-gray-700">
-                    {product.author}
-                  </p>
+                  <p className="mt-1 text-xs text-gray-700">{product.author}</p>
                 </div>
                 <div className="mt-4 flex flex-col ml-auto space-y-6">
                   <div className="flex items-center border-gray-100">
@@ -153,7 +148,9 @@ export const Cart = ({ cartItems }) => {
             </div>
             <div className="flex justify-between">
               <p className="text-gray-700">Standard Delivery: </p>
-              <p className="text-gray-700">{deliverycost === 0 ? "Free Delivery" : `₹ ${deliverycost}`}</p>
+              <p className="text-gray-700">
+                {deliverycost === 0 ? "Free Delivery" : `₹ ${deliverycost}`}
+              </p>
             </div>
             <hr className="my-4" />
             <div className="flex justify-between">
@@ -165,10 +162,7 @@ export const Cart = ({ cartItems }) => {
               </div>
             </div>
             <Link to={"/checkout"}>
-              <button
-                onClick={checkout}
-                className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
-              >
+              <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
                 Check out
               </button>
             </Link>
