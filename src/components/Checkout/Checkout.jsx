@@ -153,7 +153,7 @@ export const Checkout = () => {
               }
             );
             const jsonResponse = await validateResponse.json();
-            console.log("json Response", jsonResponse);
+            // console.log("json Response", jsonResponse);
 
             if (jsonResponse.msg === "Transction is legit!") {
               const newdatar = {
