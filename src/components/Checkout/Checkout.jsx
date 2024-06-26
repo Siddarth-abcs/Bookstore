@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ThankyouPage } from "../ThankyouPage/ThankyouPage";
 
 export const Checkout = () => {
   const [checkoutData, setCheckoutData] = useState([]);
@@ -88,6 +87,7 @@ export const Checkout = () => {
           name: item.name,
           price: item.price,
           quantity: item.quantity,
+          image: item.url,
           language: item.language,
         })), // Assuming cartData is an array of products
         totalprice: total,
@@ -101,7 +101,7 @@ export const Checkout = () => {
           newdata
         );
         // location for redirect
-        // window.location.href = "/thankyou";
+        window.location.href = "/thankyou";
       } catch (error) {
         console.log(error);
       }
@@ -153,11 +153,10 @@ export const Checkout = () => {
               }
             );
             const jsonResponse = await validateResponse.json();
-            setPaymentStatus(jsonResponse);
-            // console.log("json Response", jsonResponse);
+            console.log("json Response", jsonResponse);
 
             if (jsonResponse.msg === "Transction is legit!") {
-              const newdata = {
+              const newdatar = {
                 clientname: data.name,
                 clientemail: data.email,
                 clientnumber: data.phone,
@@ -170,23 +169,24 @@ export const Checkout = () => {
                   data.pin,
                 ],
                 orderdate: new Date(), // Use current date for order date
-                orderid: jsonResponse.orderId, // Use the orderId from jsonResponse
+                orderid: data.payment, // Use the orderId from jsonResponse
                 products: cartData.map((item) => ({
                   _id: item._id,
                   name: item.name,
                   price: item.price,
                   quantity: item.quantity,
+                  image: item.url,
                   language: item.language,
                 })), // Assuming cartData is an array of products
                 totalprice: total,
                 paymentmethod: data.payment,
-                paymentId: jsonResponse.paymentId, // Use the paymentId from jsonResponse
+                paymentId: data.payment, // Use the paymentId from jsonResponse
               };
-
+              console.log(newdatar)
               try {
                 const response = await axios.post(
                   "https://bookapi-seven.vercel.app/order",
-                  newdata
+                  newdatar
                 );
                 // location for redirect
                 window.location.href = "/thankyou";
