@@ -10,12 +10,21 @@ import { Contact } from "./components/Contact/Contact";
 import { Terms } from "./components/TermsConditions/Terms";
 import { Productpage } from "./components/Productpage/Productpage";
 import { ThankyouPage } from "./components/ThankyouPage/ThankyouPage";
+import axios from "axios";
 
 function App() {
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("bookcart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
+
+  useEffect(()=>{
+    try {
+      axios.get('https://bookapi-seven.vercel.app/user')
+    } catch (error) {
+      console.log(error)
+    }
+  })
 
   const addToCart = (item) => {
     setCartItems((prevCartItems) => {
