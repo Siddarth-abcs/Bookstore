@@ -28,6 +28,12 @@ export const Products = ({ Cart }) => {
     setData(englishdata);
   };
 
+  useEffect(() => {
+    if (originalData.length > 0) {
+      english();
+    }
+  }, [originalData]);
+
   const hindi = () => {
     const hindidata = originalData.filter((item) => item.language === "Hindi");
     setData(hindidata);
