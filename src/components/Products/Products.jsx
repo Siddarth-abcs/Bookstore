@@ -96,8 +96,8 @@ export const Products = ({ Cart }) => {
                     {product.name}
                   </h3>
                   <p className="mt-2 text-lg font-medium text-gray-700">
-                    <span className="line-through mr-2">₹{product.price}</span>₹
-                    {product.discountprice}
+                    <span className="line-through mr-2">₹{product.price}.00</span>₹
+                    {product.discountprice}.00
                   </p>
                   <button
                     onClick={() => Cart(product)}
