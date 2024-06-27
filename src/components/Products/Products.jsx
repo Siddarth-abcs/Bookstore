@@ -42,7 +42,7 @@ export const Products = ({ Cart }) => {
   return (
     <div>
       {loading ? (
-        <div class="flex items-center justify-center w-full h-[100vh] text-gray-900 dark:text-gray-100 dark:bg-gray-950">
+        <div class="flex items-center justify-center w-full h-[80vh] text-gray-900 dark:text-gray-100 dark:bg-gray-950">
   <div>
     <h1 class="text-xl md:text-7xl font-bold flex items-center">L<svg stroke="currentColor" fill="currentColor" stroke-width="0"
         viewBox="0 0 24 24" class="animate-spin" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
