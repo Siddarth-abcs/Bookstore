@@ -46,7 +46,7 @@ export const Cart = ({ cartItems }) => {
 
   const getSubtotal = () => {
     return cartProducts.reduce(
-      (acc, product) => acc + product.price * product.quantity,
+      (acc, product) => acc + product.discountprice * product.quantity,
       0
     );
   };
@@ -101,7 +101,7 @@ export const Cart = ({ cartItems }) => {
                     </span>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <p className="text-sm">{product.price}.00 ₹</p>
+                    <p className="text-sm">{product.discountprice}.00 ₹</p>
                     <div>
                       <svg
                         onClick={() => deleteProduct(product)}
