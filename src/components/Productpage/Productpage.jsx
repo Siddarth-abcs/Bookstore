@@ -21,10 +21,10 @@ export const Productpage = ({ Cartpage }) => {
               <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
               <div className="flex items-center mb-6">
                 <span className="text-gray-500 font-semibold text-2xl line-through">
-                  ₹{product.discountprice}.00
+                  ₹{product.price}.00
                 </span>
                 <span className="ml-2 text-2xl font-semibold text-red-600">
-                  ₹{product.price}.00
+                  ₹{product.discountprice}.00
                 </span>
               </div>
               <p className="text-gray-800 mb-6 text-md font-semibold">
