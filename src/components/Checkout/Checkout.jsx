@@ -108,7 +108,7 @@ export const Checkout = () => {
       // Razorpay method start
     } else {
       // post on razarpay for crate orderid
-      const amount =  100;
+      const amount = total * 100;
       const currency = "INR";
       const receiptId = "1234567890";
 
