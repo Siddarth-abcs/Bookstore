@@ -13,7 +13,7 @@ export const Checkout = () => {
 
   const calculateSubtotal = () => {
     return checkoutData.reduce(
-      (acc, item) => acc + item.price * item.quantity,
+      (acc, item) => acc + item.discountprice * item.quantity,
       0
     );
   };
@@ -85,7 +85,7 @@ export const Checkout = () => {
         products: cartData.map((item) => ({
           _id: item._id,
           name: item.name,
-          price: item.price,
+          price: item.discountprice,
           quantity: item.quantity,
           image: item.url,
           language: item.language,
@@ -173,7 +173,7 @@ export const Checkout = () => {
                 products: cartData.map((item) => ({
                   _id: item._id,
                   name: item.name,
-                  price: item.price,
+                  price: item.discountprice,
                   quantity: item.quantity,
                   image: item.url,
                   language: item.language,
@@ -352,7 +352,7 @@ export const Checkout = () => {
                         x {item.quantity}
                       </span>
                       <span className="text-gray-800 font-medium ml-4">
-                        ₹{item.price}
+                        ₹{item.discountprice}
                       </span>
                     </div>
                   </div>
