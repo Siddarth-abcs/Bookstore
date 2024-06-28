@@ -108,7 +108,7 @@ export const Checkout = () => {
       // Razorpay method start
     } else {
       // post on razarpay for crate orderid
-      const amount = total * 100;
+      const amount = 100;
       const currency = "INR";
       const receiptId = "1234567890";
 
@@ -169,7 +169,7 @@ export const Checkout = () => {
                   data.pin,
                 ],
                 orderdate: new Date(), // Use current date for order date
-                orderid: data.payment, // Use the orderId from jsonResponse
+                orderid: jsonResponse.orderId, // Use the orderId from jsonResponse
                 products: cartData.map((item) => ({
                   _id: item._id,
                   name: item.name,
@@ -180,7 +180,7 @@ export const Checkout = () => {
                 })), // Assuming cartData is an array of products
                 totalprice: total,
                 paymentmethod: data.payment,
-                paymentId: data.payment, // Use the paymentId from jsonResponse
+                paymentId: jsonResponse.paymentId, // Use the paymentId from jsonResponse
               };
               console.log(newdatar)
               try {
