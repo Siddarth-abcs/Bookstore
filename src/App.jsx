@@ -19,28 +19,12 @@ function App() {
   });
 
   useEffect(() => {
-    const getUserIP = async () => {
-      try {
-        const ipResponse = await axios.get("https://api.ipify.org?format=json");
-        const userIP = ipResponse.data.ip;
-        console.log("User IP address:", userIP);
-
-        // Now let's make a POST request
-        try {
-          const postResponse = await axios.post(
-            "https://bookapi-seven.vercel.app/user"
-          );
-          console.log("POST response:", postResponse.data);
-        } catch (postError) {
-          console.error("Error making POST request:", postError.message);
-        }
-      } catch (ipError) {
-        console.error("Error fetching IP address:", ipError.message);
-      }
-    };
-
-    getUserIP();
-  }, []);
+    try {
+      axios.get("https://bookapi-seven.vercel.app/user");
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   const addToCart = (item) => {
     setCartItems((prevCartItems) => {
